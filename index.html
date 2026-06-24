@@ -47,6 +47,20 @@
             color: var(--text-primary);
         }
         .navbar-title span { color: var(--accent-blue); }
+
+        /* Spark 引擎标识 */
+        .spark-badge {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.3rem 0.7rem; margin-left: 1rem;
+            background: linear-gradient(135deg, rgba(255, 87, 34, 0.18), rgba(255, 152, 0, 0.18));
+            border: 1px solid rgba(255, 152, 0, 0.5);
+            border-radius: 6px; font-size: 0.75rem; font-weight: 500;
+            color: #ffb74d; font-family: 'Orbitron', monospace;
+            letter-spacing: 0.5px;
+        }
+        .spark-badge::before {
+            content: '⚡'; font-size: 0.9rem; color: #ffa726;
+        }
         .nav-menu { display: flex; gap: 0.5rem; }
         .nav-btn {
             padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;
@@ -166,7 +180,10 @@
     <div class="bg-pattern"></div>
     <div class="app-container">
         <nav class="navbar">
-            <div class="navbar-title">🎓 学生 <span>数字画像</span> 系统</div>
+            <div>
+                <span class="navbar-title">🎓 学生 <span>数字画像</span> 系统</span>
+                <span class="spark-badge">APACHE SPARK 4.1.2</span>
+            </div>
             <div class="nav-menu">
                 <button class="nav-btn active" data-section="profile">📊 画像</button>
                 <button class="nav-btn" data-section="risk">🚨 预警</button>
@@ -309,9 +326,9 @@
             try {
                 console.log('开始加载数据...');
                 const [r1, r2, r3] = await Promise.all([
-                    fetch('output/students.json'),
-                    fetch('output/profiles.json'),
-                    fetch('output/stats.json')
+                    fetch('output_spark/students.json'),
+                    fetch('output_spark/profiles.json'),
+                    fetch('output_spark/stats.json')
                 ]);
                 if (!r1.ok || !r2.ok || !r3.ok) throw new Error('数据文件加载失败');
                 students = await r1.json();
